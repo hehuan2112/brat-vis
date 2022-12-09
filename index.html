@@ -39,7 +39,8 @@ var collData = {
         borderColor: 'darken'
     }],
 
-    relation_types: [ {
+    relation_types: [ 
+    {
         type     : 'Anaphora',
         labels   : ['Anaphora'],
         // dashArray allows you to adjust the style of the relation arc
@@ -54,7 +55,24 @@ var collData = {
             // {role: 'Start', targets: ['Person'] },
             // {role: 'End',  targets: ['Person'] }
         ]
-    }],
+    },
+    {
+        type     : 'Anaphora.link_AE-linkSRV',
+        labels   : ['Anaphora'],
+        // dashArray allows you to adjust the style of the relation arc
+        // dashArray: '3,3',
+        // color    : 'purple',
+        color  : '#ff0000',
+        /* A relation takes two arguments, both are named and can be constrained
+            as to which types they may apply to */
+        args     : [
+            {role: 'Start' },
+            {role: 'End_2' },
+            // {role: 'Start', targets: ['Person'] },
+            // {role: 'End',  targets: ['Person'] }
+        ]
+    }
+    ],
 
     event_types: [ {
         type   : 'Assassination',
@@ -89,7 +107,9 @@ var docData = {
     ],
     relations: [
         // Format: [${ID}, ${TYPE}, [[${ARGNAME}, ${TARGET}], [${ARGNAME}, ${TARGET}]]]
+        // ['R1', 'Anaphora', [['Start', 'T2']  ]], // this is a wrong example
         ['R1', 'Anaphora', [['Start', 'T2'], ['End', 'T1'] ]],
+        ['R11', 'Anaphora.link_AE-linkSRV', [['Start', 'T2'], ['End_2', 'T4'] ]],
         ['R2', 'Anaphora', [['Start', 'T2'], ['End', 'T3'] ]],
         ['R3', 'Anaphora', [['Start', 'T8'], ['End', 'T9'] ]],
         ['R4', 'Anaphora', [['Start', 'T8'], ['End', 'T9'] ]],
