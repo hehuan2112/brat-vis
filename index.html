@@ -51,6 +51,16 @@ var collData = {
                 glyphColor: 'blue'
             }
         }
+    }, {
+        type: 'Status',
+        values: {
+            'Present': {
+                glyph: 'Prs',
+            },
+            'HistoryOf': {
+                glyph: 'His'
+            }
+        }
     }],
 
     relation_types: [ 
@@ -123,6 +133,8 @@ var docData = {
     attributes: [
         ['A1', 'Certainty', 'T1', 'Positive'],
         ['A2', 'Certainty', 'T4', 'Negative'],
+        ['A3', 'Status', 'T1', 'Present'],
+        ['A4', 'Status', 'T4', 'HistoryOf'],
     ],
     relations: [
         // Format: [${ID}, ${TYPE}, [[${ARGNAME}, ${TARGET}], [${ARGNAME}, ${TARGET}]]]
