@@ -39,6 +39,20 @@ var collData = {
         borderColor: 'darken'
     }],
 
+    entity_attribute_types: [{
+        type: 'Certainty',
+        values: {
+            'Positive': {
+                glyph: '+',
+                glyphColor: 'red'
+            },
+            'Negative': {
+                glyph: '-',
+                glyphColor: 'blue'
+            }
+        }
+    }],
+
     relation_types: [ 
     {
         type     : 'Anaphora',
@@ -104,6 +118,11 @@ var docData = {
         ['T8', 'Person', [[78, 82]] ],
         ['T9', 'Person', [[90, 93]] ],
 
+    ],
+
+    attributes: [
+        ['A1', 'Certainty', 'T1', 'Positive'],
+        ['A2', 'Certainty', 'T4', 'Negative'],
     ],
     relations: [
         // Format: [${ID}, ${TYPE}, [[${ARGNAME}, ${TARGET}], [${ARGNAME}, ${TARGET}]]]

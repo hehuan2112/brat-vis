@@ -777,16 +777,23 @@ var BratVisualizer = (function($, window, undefined) {
           // instead of using the first attribute def found
           var attrType = (eventAttributeTypes[attr[1]] ||
                           entityAttributeTypes[attr[1]]);
-          var attrValue = attrType && attrType.values.byName[attrType.bool || attr[3]];
+          console.log('* attrType:', attrType);
+
+          // var attrValue = attrType && attrType.values.byName[attrType.bool || attr[3]];
+          var attrValue = attrType && attrType.values[attrType.bool || attr[3]];
           var span = data.spans[attr[2]];
           if (!span) {
             dispatcher.post('messages', [[['Annotation ' + attr[2] + ', referenced from attribute ' + attr[0] + ', does not exist.', 'error']]]);
             return;
           }
           var valText = (attrValue && attrValue.name) || attr[3];
-          var attrText = attrType
-            ? (attrType.bool ? attrType.name : (attrType.name + ': ' + valText))
+          console.log("* valText:", valText);
+
+          var attrText = attrType ?
+            (attrType.bool ? attrType.type : (attrType.type + ': ' + valText))
             : (attr[3] == true ? attr[1] : attr[1] + ': ' + attr[3]);
+          console.log("* attrText:", attrText);
+          
           span.attributeText.push(attrText);
           span.attributes[attr[1]] = attr[3];
           if (attr[4]) { // cue
@@ -1046,17 +1053,21 @@ var BratVisualizer = (function($, window, undefined) {
                           entityAttributeTypes[attrType]);
               if (!attr) {
                 // non-existent type
+                console.log('* attr error non-existent type:', eventAttributeTypes[attrType], entityAttributeTypes[attrType]);
                 warning = true;
                 return;
               }
-              var val = attr.values.byName[attr.bool || valType];
+              // var val = attr.values.byName[attr.bool || valType];
+              var val = attr.values[attr.bool || valType];
               if (!val) {
                 // non-existent value
+                console.log('* attr error non-existent value:', attr.values, attr.bool, valType);
                 warning = true;
                 return;
               }
               if ($.isEmptyObject(val)) {
                 // defined, but lacks any visual presentation
+                console.log('* attr error lack visual:', val);
                 warning = true;
                 return;
               }
@@ -1074,6 +1085,7 @@ var BratVisualizer = (function($, window, undefined) {
                 }
               }
             });
+
             var text = fragment.labelText;
             if (prefix !== '') {
               text = prefix + ' ' + text;
@@ -3468,15 +3480,21 @@ BratUtil.profileStart('before render');
         $.each(response_types, function(aTypeNo, aType) {
           processed[aType.type] = aType;
           // count the values; if only one, it's a boolean attribute
-          if (aType.values.length == 1) {
-            aType.bool = aType.values[0].name;
+          // if (aType.values.length == 1) {
+          //   aType.bool = aType.values[0].name;
+          // }
+          if (Object.keys(aType.values).length == 1) {
+            aType.bool = Object.keys(aType.values)[0];
           }
           // We need attribute values to be stored as an array, in the correct order,
           // but for efficiency of access later we also create a map of each value 
           // name to the corresponding value dictionary.
-          aType.values.byName = {}
+          // aType.values.byName = {}
+          // $.each(aType.values, function(valueNo, val) {
+          //     aType.values.byName[val.name] = val;
+          // });
           $.each(aType.values, function(valueNo, val) {
-              aType.values.byName[val.name] = val;
+              aType.values[valueNo].name = valueNo;
           });
         });
         return processed;
