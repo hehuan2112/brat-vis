@@ -777,22 +777,24 @@ var BratVisualizer = (function($, window, undefined) {
           // instead of using the first attribute def found
           var attrType = (eventAttributeTypes[attr[1]] ||
                           entityAttributeTypes[attr[1]]);
-          console.log('* attrType:', attrType);
+          // console.log('* attrType:', attrType);
 
           // var attrValue = attrType && attrType.values.byName[attrType.bool || attr[3]];
           var attrValue = attrType && attrType.values[attrType.bool || attr[3]];
+          // console.log('* attrValue:', attrValue);
+
           var span = data.spans[attr[2]];
           if (!span) {
             dispatcher.post('messages', [[['Annotation ' + attr[2] + ', referenced from attribute ' + attr[0] + ', does not exist.', 'error']]]);
             return;
           }
           var valText = (attrValue && attrValue.name) || attr[3];
-          console.log("* valText:", valText);
+          // console.log("* valText:", valText);
 
           var attrText = attrType ?
             (attrType.bool ? attrType.type : (attrType.type + ': ' + valText))
             : (attr[3] == true ? attr[1] : attr[1] + ': ' + attr[3]);
-          console.log("* attrText:", attrText);
+          // console.log("* attrText:", attrText);
           
           span.attributeText.push(attrText);
           span.attributes[attr[1]] = attr[3];
