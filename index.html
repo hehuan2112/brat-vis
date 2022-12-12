@@ -39,6 +39,8 @@ var collData = {
         borderColor: 'darken'
     }],
 
+    // entity_attribute_types: [],
+
     entity_attribute_types: [{
         type: 'Certainty',
         values: {
@@ -133,11 +135,14 @@ var docData = {
     ],
 
     attributes: [
-        ['A1', 'Certainty', 'T1', 'Positive'],
-        ['A2', 'Certainty', 'T4', 'Negative'],
-        ['A3', 'Status', 'T1', 'Present'],
-        ['A4', 'Status', 'T4', 'HistoryOf'],
+        ['A0', 'Certainty', 'T1', 'Positive'],
+        ['A1', 'Certainty', 'T4', 'Negative'],
+        ['A2', 'Status', 'T1', 'Present'],
+        ['A3', 'Status', 'T4', 'HistoryOf'],
     ],
+
+    // attributes: [],
+
     relations: [
         // Format: [${ID}, ${TYPE}, [[${ARGNAME}, ${TARGET}], [${ARGNAME}, ${TARGET}]]]
         // ['R1', 'Anaphora', [['Start', 'T2']  ]], // this is a wrong example
